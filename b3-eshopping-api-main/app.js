@@ -1,0 +1,37 @@
+// Configuration de express
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+
+// Lecture du fichier .env
+require('dotenv').config()
+
+// Lecture du fichier models/index.js afin de lancer la synchronisation de Sequelize
+require('./models/index.js');
+
+// Importation des routeurs
+const indexRouter = require('./routes/index.js');
+const productRouter = require('./routes/product.js');
+const userRouter = require('./routes/user.js');
+const orderRouter = require('./routes/order.js');
+const { authenticateUser } = require('./routes/');
+const auth = require('./middlewares/auth.js');
+
+const app = express();
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+app.use('/order', orderRouter)
+app.use('/user', userRouter)
+app.use('/', indexRouter);
+//app.use(auth.authenticateUser)
+app.use('/product', productRouter)
+
+
+
+
+module.exports = app;
