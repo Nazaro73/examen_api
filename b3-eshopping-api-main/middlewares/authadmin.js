@@ -7,14 +7,14 @@ const bcrypt = require('bcrypt');
 
 
 // Ce fichier contient les middleware relatif à l'authentification
-function authenticateUser( req, res, next){
+function authenticateAdmin( req, res, next){
     const bearerToken = req.get('Authorization'); // Récupérer le token de l'en-tête de la requête
         const token = bearerToken.split(" ")[1];
         
         if (token) {
             jwt.verify(token, process.env.SECRET_TOKEN, async (err, decoded) => {
                 const user = await User.findByPk(decoded.id);
-                    console.log(user.roleId);
+                    
                 if (user.roleId != 2) {
                     res.send("vous n'etes pas admin");
                 } else {
@@ -29,5 +29,5 @@ function authenticateUser( req, res, next){
 }
 
 module.exports = {
-    'authenticateUser': authenticateUser,
+    'authenticateAdmin': authenticateAdmin,
 };

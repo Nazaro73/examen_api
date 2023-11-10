@@ -14,9 +14,9 @@ function authenticateUser( req, res, next){
         if (token) {
             jwt.verify(token, process.env.SECRET_TOKEN, async (err, decoded) => {
                 const user = await User.findByPk(decoded.id);
-                    console.log(user.roleId);
-                if (user.roleId != 1) {
-                    res.send("vous n'etes pas admin");
+                    
+                if (err) {
+                    res.send("une erreur est apparue");
                 } else {
                     next();
                 }
