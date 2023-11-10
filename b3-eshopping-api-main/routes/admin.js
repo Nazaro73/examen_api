@@ -23,8 +23,8 @@ router.post('/sign', async (req, res) => {
     bcrypt.hash(req.body.password, 12).then(hashedPassword => {
         let password = hashedPassword;
         try {
-            const { email,  display_name} = req.body;
-            let roleId = "1";
+            const { email,  display_name, } = req.body;
+            let roleId = "2";
              // Créez une nouvelle tâche dans la base de données
             const user = User.create({              
             email,
