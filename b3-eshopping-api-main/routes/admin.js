@@ -3,8 +3,8 @@ const router = express.Router();
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { User } = require('../models/index');
-
+const { User, Tag } = require('../models/index');
+const { TagProduct } = require('../models/index');
 /* Route de test */
 router.get('/', async function(req, res) {
     
@@ -75,6 +75,25 @@ router.post('/sign', async (req, res) => {
             }
 
         });
+    });
+
+    router.post('/addTag', async (req, res) => {
+        
+        try {
+            const { productId , tagId, } = req.body;
+            
+             // Créez une nouvelle tâche dans la base de données
+             const tag = await Tag.findByPk(tagId);
+            
+            await tag.addProduct( productId);
+            
+            // Réponse avec la tâche créée
+            res.status(201).json(tag.getProducts());
+            res.status
+          } catch (error) {
+            console.error("Erreur lors de l'ajout du tag :", error);
+            res.status(500).json({ error: "Erreur lors de l'ajout du tag " });
+          }
     });
 
     

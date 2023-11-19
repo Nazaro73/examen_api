@@ -6,6 +6,7 @@ const Role = require('./Role');
 const User= require('./User');
 const Order= require('./Order');
 const ProdOrder= require('./ProdOrder');
+const TagProduct= require('./TagProduct');
 const Tag= require('./Tag');
 const Panier = require('./Panier');
 // Déclaration des relations
@@ -13,8 +14,8 @@ const Panier = require('./Panier');
 Role.hasMany(User);
 User.belongsTo(Role);
 
-Tag.hasMany(Product);
-Product.belongsTo(Tag);
+Tag.belongsToMany(Product,{through:TagProduct});
+Product.belongsToMany(Tag,{through:TagProduct});
 
 User.hasMany(Order);
 Order.belongsTo(User);
@@ -36,4 +37,6 @@ module.exports = {
     Order: Order,
     Tag: Tag,
     ProdOrder: ProdOrder,
+    Panier: Panier,
+    TagProduct: TagProduct,
 }

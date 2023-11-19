@@ -5,13 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/index');
 
-/* Route de test */
-router.get('/', async function(req, res) {
-    
- await User.findAll().then(user => {
-    res.json(user);
-});
-});
+
 
 function generateToken(id) {
     return jwt.sign({ id: id }, process.env.SECRET_TOKEN, { expiresIn: '10h' });
@@ -31,10 +25,7 @@ router.post('/sign', async (req, res) => {
             display_name,
             password,
             roleId
-            });
-            
-            
-        
+            });        
             // Réponse avec la tâche créée
             res.status(201).json(user);
             res.status
@@ -52,8 +43,6 @@ router.post('/sign', async (req, res) => {
             email : req.body.email 
         }
     });
-
-    
 
         if (user.lenght === 0) {
             res.send("email ou mdp incorresct");
@@ -76,9 +65,5 @@ router.post('/sign', async (req, res) => {
 
         });
     });
-
-    
-
-
 
 module.exports = router;
