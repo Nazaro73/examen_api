@@ -29,8 +29,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
-//app.use(authuser.authenticateUser)
+
 app.use('/user', userRouter)
+//app.use(authuser.authenticateUser)
 app.use('/admin', adminRouter)
 app.use('/order', orderRouter)
 //app.use(authadmin.authenticateAdmin)

@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { Product, Tag } = require('../models/index');
-
+const { Op } = require('sequelize');
 /* Route de test */
 router.get('/', function(req, res) {
+  
+  
   Product.findAll().then(product => {
     if (product.stock != 0){
       res.json(product);
     }
-    
     
 });
 });
@@ -43,6 +44,8 @@ router.get('/filtered/:idTag',async function(req, res) {
 })
   
 })
+
+
 
 
 
